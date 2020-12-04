@@ -117,4 +117,4 @@ dist
 
 .vs
 
-kafkaConfig.js
+config.js
