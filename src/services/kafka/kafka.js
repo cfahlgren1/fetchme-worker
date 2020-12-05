@@ -4,43 +4,45 @@ const kafkaConfig = require("./config");
 const kafka = new Kafka(kafkaConfig.config);
 
 const topic = kafkaConfig.topic;
-const consumer = kafka.consumer({ groupId: 'slack-workers' })
+const consumer = kafka.consumer({ groupId: "slack-workers" }); // set consumer to a group
 
+// connect and subscribe to topic
 const run = async () => {
-  await consumer.connect()
-  await consumer.subscribe({ topic, fromBeginning: true })
+  await consumer.connect();
+  await consumer.subscribe({ topic, fromBeginning: true });
   await consumer.run({
     eachMessage: async ({ topic, partition, message }) => {
-      const prefix = `${topic}[${partition} | ${message.offset}] / ${message.timestamp}`
-      console.log(`- ${prefix} ${message.key}#${message.value}`)
+      const prefix = `${topic}[${partition} | ${message.offset}] / ${message.timestamp}`;
+      console.log(`- ${prefix} ${message.key}#${message.value}`);
+      const slackArguments = JSON.parse(message.value);
     },
-  })
-}
+  });
+};
 
-run().catch(e => console.error(`[example/consumer] ${e.message}`, e))
+run().catch((e) => console.error(`[example/consumer] ${e.message}`, e));
 
-const errorTypes = ['unhandledRejection', 'uncaughtException']
-const signalTraps = ['SIGTERM', 'SIGINT', 'SIGUSR2']
+const errorTypes = ["unhandledRejection", "uncaughtException"];
+const signalTraps = ["SIGTERM", "SIGINT", "SIGUSR2"];
 
-errorTypes.map(type => {
-  process.on(type, async e => {
+errorTypes.map((type) => {
+  process.on(type, async (e) => {
     try {
-      console.log(`process.on ${type}`)
-      console.error(e)
-      await consumer.disconnect()
-      process.exit(0)
+      console.log(`process.on ${type}`);
+      console.error(e);
+      await consumer.disconnect();
+      process.exit(0);
     } catch (_) {
-      process.exit(1)
+      process.exit(1);
     }
-  })
-})
+  });
+});
 
-signalTraps.map(type => {
+signalTraps.map((type) => {
   process.once(type, async () => {
     try {
-      await consumer.disconnect()
+      await consumer.disconnect();
     } finally {
-      process.kill(process.pid, type)
+      process.kill(process.pid, type);
     }
-  })
-})
+  });
+});
