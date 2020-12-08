@@ -1,4 +1,5 @@
 const express = require("express");
+const kafka = require('./src/services/kafka/kafka');
 const app = express();
 const port = 3000;
 
@@ -12,3 +13,8 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}`);
 });
+
+// start kafka on server start
+kafka.run();
+
+

@@ -2,24 +2,24 @@ const { Kafka } = require("kafkajs");
 const kafkaConfig = require("./config");
 
 const kafka = new Kafka(kafkaConfig.config);
-
 const topic = kafkaConfig.topic;
 const consumer = kafka.consumer({ groupId: "slack-workers" }); // set consumer to a group
 
 // connect and subscribe to topic
 const run = async () => {
+  console.log('Connecting to Kafka');
   await consumer.connect();
   await consumer.subscribe({ topic, fromBeginning: true });
+  console.log('Subscribed to', topic);
   await consumer.run({
     eachMessage: async ({ topic, partition, message }) => {
       const prefix = `${topic}[${partition} | ${message.offset}] / ${message.timestamp}`;
       console.log(`- ${prefix} ${message.key}#${message.value}`);
       const slackArguments = JSON.parse(message.value);
+      console.log(slackArguments);
     },
   });
 };
-
-run().catch((e) => console.error(`[example/consumer] ${e.message}`, e));
 
 const errorTypes = ["unhandledRejection", "uncaughtException"];
 const signalTraps = ["SIGTERM", "SIGINT", "SIGUSR2"];
@@ -46,3 +46,6 @@ signalTraps.map((type) => {
     }
   });
 });
+
+
+module.exports = { run }
