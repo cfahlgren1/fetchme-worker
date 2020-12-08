@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 // Create MongoDB Team Schema
-const Team = new mongoose.Schema(
+const TeamSchema = new mongoose.Schema(
   {
     teamid: {
       type: String,
@@ -19,11 +19,11 @@ const Team = new mongoose.Schema(
 );
 
 // if team is deleted, delete all users associated with user
-userSchema.pre("remove", function (next) {
+TeamSchema.pre("remove", function (next) {
   this.model("User").deleteMany({ user: this._id }, next);
 });
 
-UserSchema.plugin(uniqueValidator, { message: "is already taken." });
+TeamSchema.plugin(uniqueValidator, { message: "is already taken." });
 
-const User = mongoose.model("User", UserSchema);
+const Team = mongoose.model("Team", TeamSchema);
 export default User;

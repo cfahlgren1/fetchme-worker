@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 // Create MongoDB Fetch Me Request Schema
-const FetchRequest = new mongoose.Schema(
+const FetchRequestSchema = new mongoose.Schema(
   {
     hash: {
       type: String,
@@ -25,7 +25,7 @@ const FetchRequest = new mongoose.Schema(
   { timestamps: true }
 );
 
-FetchRequest.plugin(uniqueValidator, { message: "is already taken." });
+FetchRequestSchema.plugin(uniqueValidator, { message: "is already taken." });
 
 const FetchRequest = mongoose.model("FetchRequest", FetchRequestSchema);
 export default FetchRequest;
