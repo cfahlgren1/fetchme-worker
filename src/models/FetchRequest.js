@@ -1,31 +1,26 @@
 const mongoose = require("mongoose");
 
-// Create MongoDB Fetch Me Request Schema
-const FetchRequestSchema = new mongoose.Schema(
-  {
-    hash: {
-      type: String,
-      required: true,
-      index: true,
-    },
-    url: {
-      type: String,
-      index: true,
-      required: true,
-    },
-    size: {
-      type: Number,
-    },
-    response: {
-      type: String,
-      required: true,
-    },
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+const FetchRequestSchema = new mongoose.Schema({
+  hash: {
+    index: true,
+    type: String,
+    required: true,
   },
-  { timestamps: true }
+  url: {
+    type: String,
+    required: true,
+  },
+  response: {
+    type: String,
+    required: true,
+  },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+module.exports = FetchRequest = mongoose.model(
+  "fetchrequest",
+  FetchRequestSchema
 );
-
-FetchRequestSchema.plugin(uniqueValidator, { message: "is already taken." });
-
-const FetchRequest = mongoose.model("FetchRequest", FetchRequestSchema);
-export default FetchRequest;

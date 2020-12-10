@@ -5,15 +5,15 @@ const router = express.Router();
 // @ desc     Get list of users on team and team information
 // @access    Private
 router.get("/", (req, res) => {
-  res.send("Users Route");
+  res.send("User Route");
 });
 
 // @route     GET api/v1/users/teamid
-// @ desc     Get list of users on team and team information
+// @ desc     Get User Information
 // @access    Private
 router.get("/:id", (req, res) => {
   const teamid = req.params.id;
-  res.send({ team: teamid });
+  res.send({ user: teamid });
 });
 
 module.exports = router;
