@@ -3,13 +3,12 @@ const router = express.Router();
 
 const Team = require("../../../models/Team");
 
-// @route     GET api/v1/team/:id
-// @ desc     Get team information by id
+// @route     GET api/v1/teams/
+// @ desc     Get list of all teams on fetchme
 // @access    Private
-router.get("/:id", async (req, res) => {
-  const id = req.params.id;
+router.get("/", async (req, res) => {
   try {
-    const teams = await Team.find({ teamid: id });
+    const teams = await Team.find({});
     res.json(teams);
   } catch (err) {
     console.log(err.message);
