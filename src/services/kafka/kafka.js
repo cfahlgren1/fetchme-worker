@@ -7,10 +7,10 @@ const consumer = kafka.consumer({ groupId: "slack-workers" }); // set consumer t
 
 // connect and subscribe to topic
 const run = async () => {
-  console.log('Connecting to Kafka');
+  console.log("Connecting to Kafka");
   await consumer.connect();
   await consumer.subscribe({ topic, fromBeginning: true });
-  console.log('Subscribed to', topic);
+  console.log("Subscribed to", topic);
   await consumer.run({
     eachMessage: async ({ topic, partition, message }) => {
       const prefix = `${topic}[${partition} | ${message.offset}] / ${message.timestamp}`;
@@ -47,5 +47,4 @@ signalTraps.map((type) => {
   });
 });
 
-
-module.exports = { run }
+module.exports = { run };
