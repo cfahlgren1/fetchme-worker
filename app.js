@@ -1,15 +1,19 @@
 const express = require("express");
-const kafka = require('./src/services/kafka/kafka');
-const app = express();
-const Database = require('./src/database');
+const kafka = require("./src/services/kafka/kafka");
+const connectDB = require("./src/database");
 
-// instantiate database
-let db = new Database();
+const app = express();
+
+// Connect database
+connectDB();
 
 const port = 3000;
 
-const api_route = require("./src/routes/api/v1/routes");
-app.use("/api/v1/", api_route);
+// Define Routes
+app.use("/api/v1/users", require("./src/routes/api/v1/users"));
+app.use("/api/v1/auth", require("./src/routes/api/v1/auth"));
+app.use("/api/v1/profile", require("./src/routes/api/v1/profile"));
+app.use("/api/v1/requests", require("./src/routes/api/v1/requests"));
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
@@ -21,5 +25,3 @@ app.listen(port, () => {
 
 // start kafka on server start
 kafka.run();
-
-

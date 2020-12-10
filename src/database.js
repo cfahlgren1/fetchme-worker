@@ -1,20 +1,15 @@
-const config = require('../config/db');
-const mongoose = require('mongoose');
+const config = require("../config/db");
+const mongoose = require("mongoose");
 
-class Database {
-  constructor() {
-    this._connect()
+const connectDB = async () => {
+  try {
+    mongoose.connect(config.db, { useNewUrlParser: true });
+    console.log("MongoDB Connected....");
+  } catch (err) {
+    console.log(err.message);
+    // exit process with failure
+    process.exit(1);
   }
-  
-_connect() {
-     mongoose.connect(config.db, {useNewUrlParser: true})
-       .then(() => {
-         console.log('Database connection successful')
-       })
-       .catch(err => {
-         console.error('Database connection error')
-       })
-  }
-}
+};
 
-module.exports = Database
+module.exports = connectDB;
