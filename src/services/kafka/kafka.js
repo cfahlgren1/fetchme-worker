@@ -1,5 +1,6 @@
 const { Kafka } = require("kafkajs");
 const kafkaConfig = require("./config");
+const processMessage = require("../slack/processMessage");
 
 const kafka = new Kafka(kafkaConfig.config);
 const topic = kafkaConfig.topic;
@@ -16,7 +17,9 @@ const run = async () => {
       const prefix = `${topic}[${partition} | ${message.offset}] / ${message.timestamp}`;
       console.log(`- ${prefix} ${message.key}#${message.value}`);
       const slackArguments = JSON.parse(message.value);
-      console.log(slackArguments);
+
+      // process slack message
+      processMessage(slackArguments);
     },
   });
 };
