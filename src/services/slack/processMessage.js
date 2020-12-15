@@ -5,9 +5,9 @@ const makeRequest = require("./makeRequest");
  * @param  {Object} message
  * @return {JSON} response
  */
-const processMessage = (message) => {
+const processMessage = async(message) => {
   // make request with url and options
-  const response = makeRequest(message.args.url, message.options);
+  const response = await makeRequest(message.args.url, message.options);
 };
 
 module.exports = processMessage;
