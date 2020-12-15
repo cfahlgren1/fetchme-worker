@@ -7,8 +7,7 @@ const makeRequest = require("./makeRequest");
  */
 const processMessage = (message) => {
   // make request with url and options
-  makeRequest(message.args.url, message.options);
-  console.log(message);
+  const response = makeRequest(message.args.url, message.options);
 };
 
 module.exports = processMessage;
