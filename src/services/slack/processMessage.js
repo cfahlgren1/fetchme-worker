@@ -6,7 +6,7 @@ const dbService = require("../db/dbService");
  * @param  {Object} message
  * @return {JSON} response
  */
-const processMessage = async(message) => {
+const processMessage = async (message) => {
   // make request with url and options
   console.clear();
   const response = await makeRequest(message.args.url, message.options);

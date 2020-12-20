@@ -38,16 +38,15 @@ const makeRequest = async (url, options) => {
       body: body,
     };
     return fetchData;
-    
   } catch (err) {
     // if request took longer than 3s abort
     if (err.name === "AbortError") {
       // send webhook that says request took too long to process
-      return {body: "Request took too long to process!"};
+      return { body: "Request took too long to process!" };
     } else {
       throw err;
       // send webhook that says request took too long to process
-      return {body: "There was an error making the request!"};
+      return { body: "There was an error making the request!" };
     }
   }
 };
