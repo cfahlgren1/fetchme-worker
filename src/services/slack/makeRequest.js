@@ -12,7 +12,7 @@ const makeRequest = async (url, options) => {
   const controller = new AbortController();
 
   // set abort controller timeout to 3s
-  setTimeout(() => controller.abort(), 3000);
+  setTimeout(() => controller.abort(), 4000);
 
   reqOptions = options;
   reqOptions.signal = controller.signal;

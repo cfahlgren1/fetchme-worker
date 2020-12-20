@@ -18,6 +18,12 @@ const TeamSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  members: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
 });
 
 module.exports = Team = mongoose.model("team", TeamSchema);
