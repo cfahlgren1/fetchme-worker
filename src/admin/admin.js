@@ -10,6 +10,9 @@ AdminBro.registerAdapter(AdminBroMongoose);
 // add admin options
 const adminBroOptions = {
     resources: [User, Team, FetchRequest],
+    branding: {
+        companyName: 'FetchMe Admin',
+      },
   }
 const adminBro = new AdminBro(adminBroOptions);
 const router = AdminBroExpress.buildRouter(adminBro);
