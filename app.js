@@ -1,8 +1,12 @@
 const express = require("express");
 const kafka = require("./src/services/kafka/kafka");
 const connectDB = require("./src/database");
+const morgan = require('morgan');
 
 const app = express();
+
+// log requests using morgan
+app.use(morgan('combined'));
 
 // Connect database
 connectDB();
