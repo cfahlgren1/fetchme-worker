@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "dev": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "Caleb Fahlgren",
   "license": "ISC",
@@ -17,6 +17,7 @@
     "gravatar": "^1.8.1",
     "jsonwebtoken": "^8.5.1",
     "kafkajs": "^1.15.0",
+    "mocha": "^8.2.1",
     "mongoose": "^5.11.5",
     "mongoose-unique-validator": "^2.0.3",
     "morgan": "^1.10.0",
