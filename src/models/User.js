@@ -11,12 +11,6 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  email: {
-    type: String,
-  },
-  avatar: {
-    type: String,
-  },
   date: {
     type: Date,
     default: Date.now,
@@ -28,7 +22,7 @@ const UserSchema = new mongoose.Schema({
   requests: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "FetchRequest",
+      ref: "fetchrequest",
     },
   ],
 });

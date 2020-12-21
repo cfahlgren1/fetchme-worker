@@ -2,7 +2,7 @@ const User = require("../../models/User");
 const Team = require("../../models/Team");
 
 /**
- * Will create team or user in DB if needed
+ * Will create team in DB if needed
  * @param  {Object} slackMessage
  */
 const checkorCreateTeam = async (slackMessage) => {
@@ -27,13 +27,14 @@ const checkorCreateTeam = async (slackMessage) => {
 };
 
 /**
- * Will create team or user in DB if needed
+ * Will create user in DB if needed
  * @param  {Object} slackMessage
  */
 const checkorCreateUser = async (slackMessage) => {
   // get team id from slack
   const user_id = slackMessage.user_id;
   const user_name = slackMessage.user_name;
+  const team_id = slackMessage.team_id;
 
   // check if user exists
   const user = await User.find({ userid: user_id }).limit(1);
@@ -45,9 +46,45 @@ const checkorCreateUser = async (slackMessage) => {
       name: user_name,
     });
     await newUser.save();
-    console.log("Created user:", user_id);
+
+    const userObjectId = newUser._id;
+    // add to team
+    const team = await Team.findOneAndUpdate(
+      { teamid: team_id },
+      { $push: { members: userObjectId } },
+      { new: true }
+    );
+    console.log(`Created ${user_id} and added to team: ${team_id}`);
     return newUser;
   }
   return user;
 };
-module.exports = { checkorCreateUser, checkorCreateTeam };
+
+/**
+ * Delete team by teamid
+ * @param  {String} teamid
+ */
+const deleteTeam = async (teamid) => {
+  await Team.deleteOne({ teamid: teamid });
+};
+/**
+ * Delete user by userid
+ * @param  {String} userid
+ */
+const deleteUser = async (userid) => {
+  await User.deleteOne({ userid: userid });
+};
+/**
+ * Find team members through join
+ * @param  {String} teamid
+ */
+const findTeamMembers = async (teamid) => {
+  return await Team.find({ teamid: teamid }).populate("members");
+};
+module.exports = {
+  checkorCreateUser,
+  checkorCreateTeam,
+  deleteTeam,
+  deleteUser,
+  findTeamMembers,
+};
