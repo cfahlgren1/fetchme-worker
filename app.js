@@ -1,12 +1,14 @@
 const express = require("express");
 const kafka = require("./src/services/kafka/kafka");
 const connectDB = require("./src/database");
-const morgan = require('morgan');
+const morgan = require("morgan");
+const admin = require("./src/admin/admin");
 
 const app = express();
+app.use(admin.adminBro.options.rootPath, admin.router);
 
 // log requests using morgan
-app.use(morgan('combined'));
+app.use(morgan("combined"));
 
 // Connect database
 connectDB();

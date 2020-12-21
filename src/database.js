@@ -3,11 +3,12 @@ const mongoose = require("mongoose");
 
 const connectDB = async () => {
   try {
-    mongoose.connect(config.db, {
+    const mongodb = await mongoose.connect(config.db, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
     console.log("MongoDB Connected....");
+    return mongodb;
   } catch (err) {
     console.log(err.message);
     // exit process with failure

@@ -50,22 +50,20 @@ signalTraps.map((type) => {
   });
 });
 
-
 /**
  *  Send message to Kafka (logging)
  * @param  {String} message
  */
-const produceMessage = async(message) => {
-
+const produceMessage = async (message) => {
   const topic = kafkaConfig.loggingTopic;
   const producer = kafka.producer();
 
-  await producer.connect()
+  await producer.connect();
   await producer.send({
-      topic: topic,
-      message: message,
+    topic: topic,
+    message: message,
   });
   await producer.disconnect();
-}
+};
 
 module.exports = { run, produceMessage };
