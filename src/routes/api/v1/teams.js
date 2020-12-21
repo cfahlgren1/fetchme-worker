@@ -23,7 +23,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const id = req.params.id;
   try {
-    const teams = await Team.find({ teamid: id });
+    const teams = await Team.find({ teamid: id }).populate('members');
     res.json(teams);
   } catch (err) {
     console.log(err.message);
