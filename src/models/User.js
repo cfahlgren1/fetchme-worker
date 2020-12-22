@@ -19,12 +19,6 @@ const UserSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  requests: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "fetchrequest",
-    },
-  ],
 });
 
 module.exports = User = mongoose.model("user", UserSchema);

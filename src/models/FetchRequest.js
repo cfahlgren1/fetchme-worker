@@ -10,6 +10,15 @@ const FetchRequestSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  method: {
+    type: String,
+  },
+  status: {
+    type: String,
+  },
+  options: {
+    type: String,
+  },
   response: {
     type: String,
     required: true,

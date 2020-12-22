@@ -14,7 +14,7 @@ router.get("/:id", async (req, res) => {
 
   try {
     const fetchRequests = await FetchRequest.find({ hash: id }); // search for request with given id
-    res.json(fetchRequests);
+    res.json(fetchRequests[0]);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");

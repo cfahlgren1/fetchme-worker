@@ -1,5 +1,8 @@
 const User = require("../../models/User");
 const Team = require("../../models/Team");
+const FetchRequest = require("../../models/FetchRequest");
+const uuid4 = require('short-uuid');
+
 
 /**
  * Will create team in DB if needed
@@ -61,19 +64,33 @@ const checkorCreateUser = async (slackMessage) => {
 };
 
 /**
- * Delete team by teamid
- * @param  {String} teamid
+ * Create FetchRequest record
+ * @param  {Object} slackMessage
+ * @param  {String} response
  */
-const deleteTeam = async (teamid) => {
-  await Team.deleteOne({ teamid: teamid });
+const createFetchRequest = async (slackMessage, options, response, user) => {
+  const hash = uuid4.generate();
+  const url = slackMessage.url;
+  const body = response.body;
+  const method = options.method;
+  const arguments = options.headers;
+  const status = response.status + ' ' + response.statusText;
+
+  const newFetchRequest = new FetchRequest({
+    hash: hash,
+    url: url,
+    method: method,
+    status: status,
+    options: String(arguments),
+    response: body,
+    user: user._id,
+  });
+
+  const myRequest = await newFetchRequest.save();
+
+  return myRequest;
 };
-/**
- * Delete user by userid
- * @param  {String} userid
- */
-const deleteUser = async (userid) => {
-  await User.deleteOne({ userid: userid });
-};
+
 /**
  * Find team members through join
  * @param  {String} teamid
@@ -81,10 +98,10 @@ const deleteUser = async (userid) => {
 const findTeamMembers = async (teamid) => {
   return await Team.find({ teamid: teamid }).populate("members");
 };
+
 module.exports = {
   checkorCreateUser,
   checkorCreateTeam,
-  deleteTeam,
-  deleteUser,
+  createFetchRequest,
   findTeamMembers,
 };
