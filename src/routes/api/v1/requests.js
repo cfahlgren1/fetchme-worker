@@ -25,15 +25,20 @@ router.get("/:id", async (req, res) => {
 // @ desc     GET specific request by userid
 // @access    Public
 router.get("/user/:id", async (req, res) => {
+
   const id = req.params.id;
 
-  try {
-    const fetchRequests = await User.find({ userid: id }).populate("requests"); // search for requests from user with given id
+  // find user given by userid
+  const user = await User.find({ userid: id }).limit(1);
+
+  // if returned user, retrieve objectid and find fetch requests
+  if (user.length > 0) {
+    const userObjectId = user[0]._id;
+    const fetchRequests = await FetchRequest.find({ user: userObjectId }).populate("user").select("-response");
     res.json(fetchRequests);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
+    return;
   }
+  res.json([]);
 });
 
 module.exports = router;
