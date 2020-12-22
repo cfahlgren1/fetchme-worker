@@ -90,17 +90,8 @@ const createFetchRequest = async (slackMessage, options, response, user) => {
   return myRequest;
 };
 
-/**
- * Find team members through join
- * @param  {String} teamid
- */
-const findTeamMembers = async (teamid) => {
-  return await Team.find({ teamid: teamid }).populate("members");
-};
-
 module.exports = {
   checkorCreateUser,
   checkorCreateTeam,
   createFetchRequest,
-  findTeamMembers,
 };

@@ -1,6 +1,8 @@
 const makeRequest = require("./makeRequest");
-const dbService = require("../db/createService");
+const createService = require("../db/createService");
+const findService = require("../db/findService");
 const { sendWebhook } = require("../slack/sendWebhook");
+const { db } = require("../../models/User");
 
 /**
  * Process slack kafka message and send Slack
@@ -13,10 +15,10 @@ const processMessage = async (message) => {
   const response = await makeRequest(message.args.url, message.options);
 
   // check if team/user exists, or create it
-  await dbService.checkorCreateTeam(message.args);
-  const user = await dbService.checkorCreateUser(message.args);
+  await createService.checkorCreateTeam(message.args);
+  const user = await createService.checkorCreateUser(message.args);
   console.log(message);
-  await dbService.createFetchRequest(
+  await createService.createFetchRequest(
     message.args,
     message.options,
     response,
