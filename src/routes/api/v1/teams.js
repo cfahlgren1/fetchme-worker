@@ -9,7 +9,7 @@ const Team = require("../../../models/Team");
 // @access    Private
 router.get("/", async (req, res) => {
   try {
-    const teams = await Team.find({});
+    const teams = await Team.find({}).select("-_id");
     res.json(teams);
   } catch (err) {
     console.log(err.message);

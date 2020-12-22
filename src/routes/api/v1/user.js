@@ -8,12 +8,18 @@ router.get("/", (req, res) => {
   res.send("User Route");
 });
 
-// @route     GET api/v1/users/teamid
+// @route     GET api/v1/user/userid
 // @ desc     Get User Information
 // @access    Private
-router.get("/:id", (req, res) => {
-  const teamid = req.params.id;
-  res.send({ user: teamid });
+router.get("/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const user = await User.find({ userid: id }).select("-_id");
+    res.json(user);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send("Server Error");
+  }
 });
 
 module.exports = router;
