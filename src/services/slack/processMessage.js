@@ -16,7 +16,12 @@ const processMessage = async (message) => {
   await dbService.checkorCreateTeam(message.args);
   const user = await dbService.checkorCreateUser(message.args);
   console.log(message);
-  await dbService.createFetchRequest(message.args, message.options, response, user[0]);
+  await dbService.createFetchRequest(
+    message.args,
+    message.options,
+    response,
+    user[0]
+  );
 };
 
 module.exports = processMessage;

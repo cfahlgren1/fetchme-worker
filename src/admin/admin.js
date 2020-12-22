@@ -9,7 +9,24 @@ AdminBro.registerAdapter(AdminBroMongoose);
 
 // add admin options
 const adminBroOptions = {
-  resources: [User, Team, FetchRequest],
+  resources: [
+    {
+      resource: FetchRequest,
+      options: {
+        listProperties: [
+          "hash",
+          "url",
+          "method",
+          "status",
+          "options",
+          "date",
+          "user",
+        ],
+      },
+    },
+    User,
+    Team,
+  ],
   branding: {
     companyName: "FetchMe Admin",
   },

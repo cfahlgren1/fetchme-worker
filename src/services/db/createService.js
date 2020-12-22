@@ -1,8 +1,7 @@
 const User = require("../../models/User");
 const Team = require("../../models/Team");
 const FetchRequest = require("../../models/FetchRequest");
-const uuid4 = require('short-uuid');
-
+const uuid4 = require("short-uuid");
 
 /**
  * Will create team in DB if needed
@@ -74,14 +73,14 @@ const createFetchRequest = async (slackMessage, options, response, user) => {
   const body = response.body;
   const method = options.method;
   const arguments = options.headers;
-  const status = response.status + ' ' + response.statusText;
+  const status = response.status + " " + response.statusText;
 
   const newFetchRequest = new FetchRequest({
     hash: hash,
     url: url,
     method: method,
     status: status,
-    options: String(arguments),
+    options: JSON.stringify(arguments),
     response: body,
     user: user._id,
   });
