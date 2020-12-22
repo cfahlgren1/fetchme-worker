@@ -5,8 +5,8 @@ const axios = require("axios");
  * @param  {Object} message Contains options to send webhook
  * @param  {JSON} body JSON request to send
  */
-const sendWebhook = (message) => {
-  axios.post(message.response_url, {
+const sendWebhook = (fetchRequest, response_url) => {
+  axios.post(response_url, {
     replace_original: true,
     blocks: [
       {
@@ -24,7 +24,7 @@ const sendWebhook = (message) => {
         type: "section",
         text: {
           type: "mrkdwn",
-          text: `*URL:*  \`${message.url}\``,
+          text: `*URL:*  \`${fetchRequest.url}\``,
         },
       },
       {
@@ -38,14 +38,14 @@ const sendWebhook = (message) => {
         type: "section",
         text: {
           type: "mrkdwn",
-          text: "Request Type: `GET`",
+          text: `Request Type: \`${fetchRequest.method}\``,
         },
       },
       {
         type: "section",
         text: {
           type: "mrkdwn",
-          text: "_Options:_\n ```{ \n\tContent-Type: application/json \n}```",
+          text: `_Options:_\n \`\`\`${fetchRequest.options}\`\`\``,
         },
       },
       {
@@ -62,7 +62,7 @@ const sendWebhook = (message) => {
             emoji: true,
           },
           value: "click_me_123",
-          url: "https://google.com",
+          url: `http://localhost:3000/api/v1/requests/${fetchRequest.hash}`,
           action_id: "button-action",
         },
       },

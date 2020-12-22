@@ -7,7 +7,7 @@ const readBody = async (response) => {
 
   // check if is a json body
   if (contentType.includes("application/json")) {
-    return JSON.stringify(await response.json(), null, 4);
+    return JSON.stringify(await response.json());
   }
   // check if text body
   else if (contentType.includes("application/text")) {
