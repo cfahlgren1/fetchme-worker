@@ -7,7 +7,6 @@ const FetchRequest = require("../../models/FetchRequest");
  * @param  {String} teamid
  */
 const findTeamMembers = async (teamid) => {
-  return await Team.find({ teamid: teamid }).populate("members");
 };
 
 /**
