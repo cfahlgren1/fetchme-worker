@@ -9,20 +9,18 @@ const { sendWebhook } = require("../slack/sendWebhook");
  */
 const processMessage = async (message) => {
   // make request with url and options
-  console.clear();
   const response = await makeRequest(message.args.url, message.options);
 
   // check if team/user exists, or create it
   await createService.checkorCreateTeam(message.args);
   const user = await createService.checkorCreateUser(message.args);
-  console.log(message);
 
   // create fetch request in database
   const fetchRequest = await createService.createFetchRequest(
     message.args,
     message.options,
     response,
-    user[0]
+    user
   );
 
   // send webhook to slack

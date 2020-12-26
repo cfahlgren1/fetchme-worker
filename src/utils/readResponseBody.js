@@ -19,9 +19,7 @@ const readBody = async (response) => {
   }
   // else must be file, return file url
   else {
-    const myBlob = await request.blob();
-    const objectURL = URL.createObjectURL(myBlob);
-    return objectURL;
+    return 'Cannot respond with binary output!';
   }
 };
 

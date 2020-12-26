@@ -59,7 +59,7 @@ const checkorCreateUser = async (slackMessage) => {
     console.log(`Created ${user_id} and added to team: ${team_id}`);
     return newUser;
   }
-  return user;
+  return user[0];
 };
 
 /**

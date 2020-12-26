@@ -4,7 +4,7 @@ const router = express.Router();
 // import mongoose model
 const Team = require("../../../models/Team");
 
-// @route     GET api/v1/teams/
+// @route     GET api/v1/team/
 // @ desc     Get list of all teams on fetchme
 // @access    Private
 router.get("/", async (req, res) => {
@@ -17,7 +17,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// @route     GET api/v1/teams/:id
+// @route     GET api/v1/team/:id
 // @ desc     Get team information by id
 // @access    Private
 router.get("/:id", async (req, res) => {
