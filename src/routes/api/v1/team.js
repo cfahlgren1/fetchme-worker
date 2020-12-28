@@ -24,7 +24,8 @@ router.get("/:id", async (req, res) => {
   const id = req.params.id;
   try {
     const teams = await Team.find({ teamid: id }).populate("members");
-    res.json(teams);
+    res.header("Content-Type",'application/json');
+    res.send(JSON.stringify(teams, null, 4));
   } catch (err) {
     console.log(err.message);
     res.status(500).send("Server Error");

@@ -14,7 +14,8 @@ router.get("/:id", async (req, res) => {
 
   try {
     const fetchRequests = await FetchRequest.find({ hash: id }).select("-_id"); // search for request with given id
-    res.json(fetchRequests[0]);
+    res.header("Content-Type",'application/json');
+    res.send(JSON.stringify(fetchRequests[0], null, 4));
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
@@ -36,7 +37,8 @@ router.get("/user/:id", async (req, res) => {
     const fetchRequests = await FetchRequest.find({ user: userObjectId })
       .populate("user")
       .select("-response -_id");
-    res.json(fetchRequests);
+    res.header("Content-Type",'application/json');
+    res.send(JSON.stringify(fetchRequests, null, 4));
     return;
   }
   res.json([]);
