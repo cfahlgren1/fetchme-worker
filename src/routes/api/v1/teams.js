@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const teamController = require("../../../controllers/teamController");
 
-// @route     GET api/v1/team/
+// @route     GET api/v1/teams/
 // @ desc     Get list of all teams on fetchme
 // @access    Private
 router.get("/", async (req, res) => {
@@ -10,7 +10,7 @@ router.get("/", async (req, res) => {
   res.send(await teamController.getAllTeams());
 });
 
-// @route     GET api/v1/team/:id
+// @route     GET api/v1/teams/:id
 // @ desc     Get team information by id
 // @access    Private
 router.get("/:id", async (req, res) => {
