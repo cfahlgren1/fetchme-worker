@@ -15,7 +15,7 @@ router.get("/:id", async (req, res) => {
   const id = req.params.id;
   try {
     const user = await User.find({ userid: id }).select("-_id");
-    res.header("Content-Type",'application/json');
+    res.header("Content-Type", "application/json");
     res.send(JSON.stringify(user, null, 4));
   } catch (err) {
     console.log(err.message);
