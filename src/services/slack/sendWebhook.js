@@ -38,6 +38,13 @@ const sendWebhook = (fetchRequest, response_url) => {
         type: "section",
         text: {
           type: "mrkdwn",
+          text: `Status: \`${fetchRequest.status}\``,
+        },
+      },
+      {
+        type: "section",
+        text: {
+          type: "mrkdwn",
           text: `Request Type: \`${fetchRequest.method}\``,
         },
       },
