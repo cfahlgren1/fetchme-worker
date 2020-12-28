@@ -19,7 +19,7 @@ const readBody = async (response) => {
   }
   // else must be file, return file url
   else {
-    return 'Cannot respond with binary output!';
+    return "Cannot respond with binary output!";
   }
 };
 

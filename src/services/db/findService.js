@@ -6,8 +6,7 @@ const FetchRequest = require("../../models/FetchRequest");
  * Find team members through join
  * @param  {String} teamid
  */
-const findTeamMembers = async (teamid) => {
-};
+const findTeamMembers = async (teamid) => {};
 
 /**
  *  Find User FetchRequests by user given userid
