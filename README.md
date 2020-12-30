@@ -11,8 +11,8 @@ The API and worker server for Fetch Me Slack App 💻
 
 ## Install
 
-    $ git clone https://github.com/cfahlgren1/fetchme-api
-    $ cd fetchme-api
+    $ git clone https://github.com/cfahlgren1/fetchme-worker
+    $ cd fetchme-worker
     $ npm install
     $ npm run dev
 
