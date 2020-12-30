@@ -16,6 +16,7 @@ const makeRequest = async (url, options) => {
 
   reqOptions = options;
   reqOptions.signal = controller.signal;
+  reqOptions.body = JSON.stringify(body);
 
   try {
     // make http request with specified options
