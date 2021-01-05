@@ -10,7 +10,7 @@ const consumer = kafka.consumer({ groupId: "slack-workers" }); // set consumer t
 const run = async () => {
   console.log("Connecting to Kafka");
   await consumer.connect();
-  await consumer.subscribe({ topic, fromBeginning: true });
+  await consumer.subscribe({ topic, fromBeginning: false });
   console.log("Subscribed to", topic);
   await consumer.run({
     eachMessage: async ({ topic, partition, message }) => {
