@@ -23,7 +23,7 @@ app.listen(port, error => {
   }
 
   console.log(`Listening at http://localhost:${port}`);
-  console.log('🚀 started\n\n');
+  console.log('🚀 started');
 });
 
 process.on("SIGTERM", () => {
