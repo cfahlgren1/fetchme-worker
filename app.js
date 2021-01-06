@@ -17,8 +17,13 @@ app.get("/", (req, res) => {
 });
 
 // start server
-app.listen(port, () => {
+app.listen(port, error => {
+  if (error) {
+    console.log(error);
+  }
+
   console.log(`Listening at http://localhost:${port}`);
+  console.log('🚀 started\n\n');
 });
 
 process.on("SIGTERM", () => {
