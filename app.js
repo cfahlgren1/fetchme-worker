@@ -17,13 +17,13 @@ app.get("/", (req, res) => {
 });
 
 // start server
-app.listen(port, error => {
+app.listen(port, (error) => {
   if (error) {
     console.log(error);
   }
 
   console.log(`Listening at http://localhost:${port}`);
-  console.log('🚀 started');
+  console.log("🚀 started");
 });
 
 process.on("SIGTERM", () => {
