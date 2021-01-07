@@ -14,9 +14,15 @@ const makeRequest = async (url, options) => {
   // set abort controller timeout to 3s
   setTimeout(() => controller.abort(), 4000);
 
+  console.clear();
+  console.log('\n', options, '\n');
+
   reqOptions = options;
   reqOptions.signal = controller.signal;
-  reqOptions.body = JSON.stringify(body);
+
+  if (reqOptions.body) {
+    reqOptions.body = JSON.stringify(options.body);
+  }
 
   try {
     // make http request with specified options
