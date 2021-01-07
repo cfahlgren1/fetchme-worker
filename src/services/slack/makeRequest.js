@@ -15,9 +15,9 @@ const makeRequest = async (url, options) => {
   setTimeout(() => controller.abort(), 4000);
 
   console.clear();
-  console.log('\n', options, '\n');
+  console.log("\n", options, "\n");
 
-  reqOptions = options;
+  let reqOptions = options;
   reqOptions.signal = controller.signal;
 
   if (reqOptions.body) {

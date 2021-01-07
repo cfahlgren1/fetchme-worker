@@ -1,6 +1,6 @@
 const makeRequest = require("./makeRequest");
 const createService = require("../db/createService");
-const { sendWebhook } = require("../slack/sendWebhook");
+const { sendWebhook, sendErrorWebhook } = require("../slack/sendWebhook");
 
 /**
  * Process slack kafka message and send Slack
@@ -10,6 +10,10 @@ const { sendWebhook } = require("../slack/sendWebhook");
 const processMessage = async (message) => {
   // make request with url and options
   const response = await makeRequest(message.args.url, message.options);
+
+  if (response.status === undefined) {
+    sendErrorWebhook(message.args.response_url);
+  }
 
   // check if team/user exists, or create it
   await createService.checkorCreateTeam(message.args);

@@ -78,4 +78,39 @@ const sendWebhook = (fetchRequest, response_url) => {
   console.log("Sent Webhook!");
 };
 
-module.exports = { sendWebhook };
+/**
+ * Send error message to Slack through Webhook
+ * @param  {Object} message Contains options to send webhook
+ * @param  {JSON} body JSON request to send
+ */
+const sendErrorWebhook = (response_url, userArgs) => {
+  axios.post(response_url, {
+    replace_original: true,
+    blocks: [
+      {
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: "There seems to have been an error making the request! 😔",
+        },
+      },
+      {
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: "Check to make sure you didn't pass incorrect arguments...",
+        },
+      },
+      {
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: `\`${userArgs}\``,
+        },
+      },
+    ],
+  });
+  console.log("Sent Webhook!");
+};
+
+module.exports = { sendWebhook, sendErrorWebhook };

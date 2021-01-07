@@ -51,7 +51,7 @@ const checkorCreateUser = async (slackMessage) => {
 
     const userObjectId = newUser._id;
     // add to team
-    const team = await Team.findOneAndUpdate(
+    await Team.findOneAndUpdate(
       { teamid: team_id },
       { $push: { members: userObjectId } },
       { new: true }
@@ -72,7 +72,7 @@ const createFetchRequest = async (slackMessage, options, response, user) => {
   const url = slackMessage.url;
   const body = response.body;
   const method = options.method;
-  const arguments = options.headers;
+  const userArgs = options.headers;
   const status = response.status + " " + response.statusText;
 
   const newFetchRequest = new FetchRequest({
@@ -80,7 +80,7 @@ const createFetchRequest = async (slackMessage, options, response, user) => {
     url: url,
     method: method,
     status: status,
-    options: JSON.stringify(arguments),
+    options: JSON.stringify(userArgs),
     response: body,
     user: user._id,
   });

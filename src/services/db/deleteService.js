@@ -25,3 +25,5 @@ const deleteUser = async (userid) => {
 const deleteFetchRequest = async (hash) => {
   await FetchRequest.deleteOne({ hash: hash });
 };
+
+module.exports = { deleteFetchRequest, deleteTeam, deleteUser };

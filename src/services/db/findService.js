@@ -1,12 +1,5 @@
 const User = require("../../models/User");
-const Team = require("../../models/Team");
 const FetchRequest = require("../../models/FetchRequest");
-
-/**
- * Find team members through join
- * @param  {String} teamid
- */
-const findTeamMembers = async (teamid) => {};
 
 /**
  *  Find User FetchRequests by user given userid
@@ -24,4 +17,4 @@ const findUserRequests = async (userid) => {
   return [];
 };
 
-module.exports = { findTeamMembers, findUserRequests };
+module.exports = { findUserRequests };
