@@ -11,8 +11,9 @@ const processMessage = async (message) => {
   // make request with url and options
   const response = await makeRequest(message.args.url, message.options);
 
+  // if node-fetch had an error, send error message to user
   if (response.status === undefined) {
-    sendErrorWebhook(message.args.response_url);
+    sendErrorWebhook(message.args.response_url, message.args.text);
   }
 
   // check if team/user exists, or create it
