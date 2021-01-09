@@ -11,8 +11,12 @@ const AbortController = require("abort-controller");
 const makeRequest = async (url, options) => {
   const controller = new AbortController();
 
-  // set abort controller timeout to 3s
-  setTimeout(() => controller.abort(), 4000);
+  // set abort controller timeout to 10s
+  let timeout = false;
+  setTimeout(() => {
+    controller.abort();
+    timeout = true;
+  }, 10000);
 
   console.clear();
   console.log("\n", options, "\n");
@@ -46,10 +50,16 @@ const makeRequest = async (url, options) => {
     };
     return fetchData;
   } catch (err) {
-    // if request took longer than 3s abort
+    console.log(err.name, err.message);
+    // if request took longer than 10s abort
     if (err.name === "AbortError") {
-      // send webhook that says request took too long to process
-      return { body: "Request took too long to process!" };
+      if (timeout) {
+        console.log(`Request timeout for ${url}`);
+        // send webhook that says request took too long to process
+        return { body: "Request took too long to process!" };
+      }
+      console.log(`Error making request for options ${reqOptions}`);
+      return { body: "There was an error making the request!" };
     } else {
       // send webhook that says request took too long to process
       return { body: "There was an error making the request!" };

@@ -3,7 +3,7 @@ const axios = require("axios");
 /**
  * Send message to Slack through Webhook
  * @param  {Object} message Contains options to send webhook
- * @param  {JSON} body JSON request to send
+ * @param  {String} response_url url to fetch response from
  */
 const sendWebhook = (fetchRequest, response_url) => {
   axios.post(response_url, {
@@ -69,6 +69,7 @@ const sendWebhook = (fetchRequest, response_url) => {
             emoji: true,
           },
           value: "click_me_123",
+          style: "primary",
           url: `http://localhost:3000/api/v1/requests/${fetchRequest.hash}`,
           action_id: "button-action",
         },
@@ -80,8 +81,8 @@ const sendWebhook = (fetchRequest, response_url) => {
 
 /**
  * Send error message to Slack through Webhook
- * @param  {Object} message Contains options to send webhook
- * @param  {JSON} body JSON request to send
+ * @param  {String} response_url url the response was being fetched from
+ * @param  {String} userArgs user defined command line arguments
  */
 const sendErrorWebhook = (response_url, userArgs) => {
   axios.post(response_url, {
@@ -98,7 +99,7 @@ const sendErrorWebhook = (response_url, userArgs) => {
         type: "section",
         text: {
           type: "mrkdwn",
-          text: "Check to make sure you didn't pass incorrect arguments...",
+          text: "Make sure you didn't pass incorrect arguments.",
         },
       },
       {
@@ -113,4 +114,24 @@ const sendErrorWebhook = (response_url, userArgs) => {
   console.log("Sent Webhook!");
 };
 
-module.exports = { sendWebhook, sendErrorWebhook };
+/**
+ * When request takes too long, send info about timeout
+ * @param  {String} fetch_url url the response was being fetched from
+ * @param  {String} response_url slack webhook url
+ */
+const sendTimeoutWebhook = (response_url, fetch_url) => {
+  axios.post(response_url, {
+    replace_original: true,
+    blocks: [
+      {
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: `Sorry, request at \`${fetch_url}\` took longer than 10s to process! 😔`,
+        },
+      },
+    ],
+  });
+};
+
+module.exports = { sendWebhook, sendErrorWebhook, sendTimeoutWebhook };
