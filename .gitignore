@@ -231,5 +231,4 @@ dist
 .yarn/install-state.gz
 .pnp.*
 .vs
-config.js
 *.db
