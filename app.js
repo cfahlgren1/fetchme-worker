@@ -10,14 +10,14 @@ app.use(admin.adminBro.options.rootPath, admin.router);
 // Connect database
 connectDB();
 
-const port = 3000;
+const port = 3030;
 
 app.get("/", (req, res) => {
   res.send("Hello World! - FetchMe Worker");
 });
 
 // start server
-app.listen(port, (error) => {
+const server = app.listen(port, (error) => {
   if (error) {
     console.log(error);
   }
