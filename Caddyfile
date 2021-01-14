@@ -1,3 +1,7 @@
-localhost {
+admin.fetchme.io {
     reverse_proxy 127.0.0.1:3030
+}
+
+fetchme.io {
+    respond "Hello Fetcher!"
 }
