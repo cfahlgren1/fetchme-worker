@@ -12,7 +12,7 @@ connectDB();
 
 const port = 3030;
 
-app.get("/", (req, res) => {
+app.get("/other", (req, res) => {
   res.send("Hello World! - FetchMe Worker");
 });
 
