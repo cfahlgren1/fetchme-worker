@@ -9,6 +9,7 @@ AdminBro.registerAdapter(AdminBroMongoose);
 
 // add admin options
 const adminBroOptions = {
+  rootPath: '/',
   resources: [
     {
       resource: FetchRequest,
@@ -28,7 +29,7 @@ const adminBroOptions = {
     Team,
   ],
   branding: {
-    companyName: "FetchMe Admin",
+    companyName: "FetchMe",
   },
 };
 const adminBro = new AdminBro(adminBroOptions);
