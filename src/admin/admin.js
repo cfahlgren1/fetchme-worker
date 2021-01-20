@@ -9,7 +9,6 @@ AdminBro.registerAdapter(AdminBroMongoose);
 
 // add admin options
 const adminBroOptions = {
-  rootPath: '/',
   resources: [
     {
       resource: FetchRequest,

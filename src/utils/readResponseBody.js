@@ -7,19 +7,25 @@ const readBody = async (response) => {
 
   // check if is a json body
   if (contentType.includes("application/json")) {
-    return JSON.stringify(await response.json());
+    return {
+      body: JSON.stringify(await response.json()),
+      response_type: "application/json",
+    };
   }
   // check if text body
   else if (contentType.includes("application/text")) {
-    return await response.text();
+    return await { body: response.text(), response: "application/text" };
   }
   // check if html body
   else if (contentType.includes("text/html")) {
-    return await response.text();
+    return await { body: response.text(), response_type: "text/html" };
   }
   // else must be file, return file url
   else {
-    return "Cannot respond with binary output!";
+    return {
+      body: "Cannot respond with binary output!",
+      response_type: "binary",
+    };
   }
 };
 

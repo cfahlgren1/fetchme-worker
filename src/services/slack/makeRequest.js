@@ -34,6 +34,7 @@ const makeRequest = async (url, options) => {
 
     // read body from response
     const body = await readBody(response);
+    const response_type = body.response_type;
 
     // retrieve status codes
     const status = response.status;
@@ -46,7 +47,8 @@ const makeRequest = async (url, options) => {
       status: status,
       statusText: statusText,
       size: size,
-      body: body,
+      response_type,
+      body: body.body,
     };
     return fetchData;
   } catch (err) {

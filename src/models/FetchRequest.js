@@ -23,6 +23,10 @@ const FetchRequestSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  response_type: {
+    type: String,
+    default: "text/html",
+  },
   date: {
     type: Date,
     default: Date.now,

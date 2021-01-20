@@ -1,18 +1,18 @@
 const express = require("express");
 const kafka = require("./src/services/kafka/kafka");
 const connectDB = require("./src/database");
-const admin = require("./src/admin/admin");
+//const admin = require("./src/admin/admin");
 
 const app = express();
 
-app.use(admin.adminBro.options.rootPath, admin.router);
+//app.use(admin.adminBro.options.rootPath, admin.router);
 
 // Connect database
 connectDB();
 
 const port = 3030;
 
-app.get("/other", (req, res) => {
+app.get("/", (req, res) => {
   res.send("Hello World! - FetchMe Worker");
 });
 
