@@ -6,7 +6,7 @@ services:
     # Enables the web UI and tells Traefik to listen to docker
     command:
       #- "--log.level=DEBUG"
-      - "--api.insecure=true"
+      - "--api.insecure=false"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=true"
       - "--entrypoints.web.address=:80"
@@ -30,7 +30,7 @@ services:
       - .:/usr/src/app/
       - /usr/src/app/node_modules
     ports:
-      - "3030"
+      - "3030-3035:3030"
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.fetchme.loadbalancer.server.port=3030"
