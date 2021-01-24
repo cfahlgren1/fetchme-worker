@@ -14,11 +14,14 @@ const readBody = async (response) => {
   }
   // check if text body
   else if (contentType.includes("application/text")) {
-    return await { body: response.text(), response: "application/text" };
+    return {
+      body: await response.text(),
+      response_type: "application/text",
+    };
   }
   // check if html body
   else if (contentType.includes("text/html")) {
-    return await { body: response.text(), response_type: "text/html" };
+    return { body: await response.text(), response_type: "text/html" };
   }
   // else must be file, return file url
   else {

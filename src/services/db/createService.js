@@ -75,8 +75,6 @@ const createFetchRequest = async (slackMessage, options, response, user) => {
   const userArgs = options.headers;
   const status = response.status + " " + response.statusText;
 
-  console.log(response);
-
   const newFetchRequest = new FetchRequest({
     hash: hash,
     url: url,
@@ -89,7 +87,6 @@ const createFetchRequest = async (slackMessage, options, response, user) => {
   });
 
   const myRequest = await newFetchRequest.save();
-
   return myRequest;
 };
 

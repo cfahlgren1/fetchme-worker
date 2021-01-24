@@ -18,7 +18,6 @@ const makeRequest = async (url, options) => {
     timeout = true;
   }, 10000);
 
-  console.clear();
   console.log("\n", options, "\n");
 
   let reqOptions = options;
