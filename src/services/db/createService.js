@@ -75,6 +75,11 @@ const createFetchRequest = async (slackMessage, options, response, user) => {
   const userArgs = options.headers;
   const status = response.status + " " + response.statusText;
 
+  // remove default user-agent from fetch request
+  if (userArgs["User-Agent"] === "FetchMe-Slack-App") {
+    delete userArgs["User-Agent"];
+  }
+
   const newFetchRequest = new FetchRequest({
     hash: hash,
     url: url,
