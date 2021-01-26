@@ -21,7 +21,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.api.rule=Host(`dashboard.localhost`)"
+      - "traefik.http.routers.api.rule=Host(`worker.fetchme.io`)"
       - "traefik.http.routers.api.service=api@internal"
   web:
     build: .
@@ -34,6 +34,6 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.fetchme.loadbalancer.server.port=3030"
-      - "traefik.http.routers.fetchme.rule=Host(`admin.localhost`)"
+      - "traefik.http.routers.fetchme.rule=Host(`admin.worker.fetchme.io`)"
       - "traefik.http.routers.fetchme.entrypoints=web"
       - "traefik.port=3030"
