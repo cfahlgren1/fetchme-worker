@@ -232,3 +232,5 @@ dist
 .pnp.*
 .vs
 *.db
+.elastic.env
+*.conf
