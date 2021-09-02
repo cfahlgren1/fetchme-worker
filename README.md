@@ -15,6 +15,3 @@ The API and worker server for Fetch Me Slack App 💻
     $ cd fetchme-worker
     $ docker-compose up
 
-## Architecture
-
-![](https://i.ibb.co/c889nfF/lambda-architecture.png)
